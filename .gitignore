@@ -1,0 +1,6 @@
+.ropeproject/
+*.pyc
+__pycache__/
+*~
+\#*\#
+sample

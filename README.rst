@@ -1,0 +1,19 @@
+Requirements
+============
+Python 3.4+
+
+Usage
+=====
+::
+
+   ./freeq.py -i input_file.txt
+
+   ./freeq.py -i input_file.txt -o output_file.txt
+
+Thanks to
+=========
+12dicts word list: //wordlist.aspell.net/12dicts-readme/
+
+Disclaimer
+==========
+No Warranties. Use at your own risk.
