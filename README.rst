@@ -12,7 +12,7 @@ Usage
 
 Thanks to
 =========
-12dicts word list: //wordlist.aspell.net/12dicts-readme/
+12dicts word list: http://wordlist.aspell.net/12dicts-readme/
 
 Disclaimer
 ==========
