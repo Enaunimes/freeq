@@ -120,7 +120,7 @@ class Book(object):
     def __init__(self, filepath):
         with open(filepath) as bookfile:
             content = bookfile.read().lower()
-            self.temp_list = re.split('[^a-zA-Z]', content)
+            self.temp_list = re.split(r'\b([a-zA-Z-]+)\b', content)
             self.temp_list = [item for item in self.temp_list if not is_dirt(item)]
             finder = WordFinder()
             self.temp_list = [finder.find_headword(item) for item in self.temp_list]
