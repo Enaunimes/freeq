@@ -29,15 +29,19 @@ for headword, related in lemmas.items():
 
 
 class WordFinder(object):
-
+    '''A compound structure of dictionary and set to store word mapping'''
     def __init__(self):
-        """Create a lame container for 'quick' search
+        """Initialize lame containers for 'quick' search
 
         Structure of main_table
         {
             'a':{
+                     # All related words and the headword start with same letter
                      'abandon': {'abandons', 'abandoned', 'abandoning'},
+
                      'apply': {'applies', 'applied', 'applying'},
+
+                     # headword with no related word
                      'abeam': None,
                      ...
                 },
@@ -48,10 +52,14 @@ class WordFinder(object):
 
         Structure of special_table
         {
+
+            # 1+ related words does not share the same starting letter
+            # with heasdword
             'although': {'altho', 'tho', 'though'},
             'bad': {'badder', 'baddest', 'badly', 'badness', 'worse', 'worst'},
             ...
         }
+
         """
         self.main_table = {}
         for char in string.ascii_lowercase:
@@ -109,7 +117,6 @@ def list_dedup(list_object):
 
 
 class Book(object):
-
     def __init__(self, filepath):
         with open(filepath) as bookfile:
             content = bookfile.read().lower()
@@ -119,7 +126,7 @@ class Book(object):
             self.temp_list = [finder.find_headword(item) for item in self.temp_list]
 
     def freq(self):
-        """Count the occurencies of every word and return a collections.Counter object"""
+        """Count word frequencies and return a collections.Counter object"""
         cnt = Counter()
         for word in self.temp_list:
             cnt[word] += 1
