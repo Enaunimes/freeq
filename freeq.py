@@ -67,16 +67,22 @@ class WordFinder(object):
         self.special_table = {}
 
         for headword, related in lemmas.items():
-            if len(headword) > 1:
-                if related:
-                    for word in related.split():
-                        if word[0] != headword[0]:
-                            self.special_table[headword] = set(related.split())
-                            break
-                    else:
-                        self.main_table[headword[0]][headword] = set(related.split())
+            # Only 3 occurrences of uppercase in lemmas.txt, which include 'I'
+            # Trading precision for simplicity
+            headword = headword.lower()
+            try:
+                related = related.lower()
+            except AttributeError:
+                related = None
+            if related:
+                for word in related.split():
+                    if word[0] != headword[0]:
+                        self.special_table[headword] = set(related.split())
+                        break
                 else:
-                    self.main_table[headword[0]][headword] = None
+                    self.main_table[headword[0]][headword] = set(related.split())
+            else:
+                self.main_table[headword[0]][headword] = None
 
     def find_headword(self, word):
         """Search the 'table' and return the original form of a word"""
