@@ -3,6 +3,7 @@
 import re
 import string
 import sys
+import os
 import argparse
 from collections import Counter
 
@@ -130,17 +131,10 @@ class Book(object):
 
 
 if __name__ == '__main__':
-    platform = sys.platform
-    if re.match(r'linux|darwin|freebsd\d+', platform):
-        newline = '\n'
-    elif re.match('win32', platform):
-        answer = input('The code is not tested on Windows yet. Feedback is welcome. Continue? Y/n')
-        if (answer == '') or re.match('y|yes', answer.lower()):
-            newline = '\r\n'
-        else:
-            sys.exit(0)
-    else:
-        sys.exit('Unsupported platform.\n')    # Really need to terminate?
+    if sys.platform == 'nt':
+        sys.stderr.write("I haven't tested the code on Windows. Feedback is welcome.\n")
+
+    LINE_SEP = os.linesep
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', '--input', dest='input_file')
@@ -158,7 +152,7 @@ if __name__ == '__main__':
 
     if args.output_file:
         with open(args.output_file, 'w') as output:
-            output.write(newline.join(report))
-            output.write(newline)
+            output.write(LINE_SEP.join(report))
+            output.write(LINE_SEP)
     else:
-        print(newline.join(report))
+        print(LINE_SEP.join(report))
